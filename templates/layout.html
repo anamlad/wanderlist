@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/3614c745e0.js" crossorigin="anonymous"></script>
+    <title>{% block title %} The Wanderlist {% endblock %}</title>
+    <link rel="icon" type="image/png" href="/static/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
+    <link rel="shortcut icon" href="/static/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png" />
+    <link rel="manifest" href="/static/site.webmanifest" />
+  </head>
+  <body class="overflow-x-hidden">  
+    <!-- I used claude to help me with integrating tailwind to improve upon my design -->
+    <div id="body-background" class="min-h-screen bg-gradient-to-br from-blue-300 to-purple-200">
+      <div class="mx-auto px-4 py-12">
+        <header class="text-center mb-1 relative z-50">
+          {% if session.user_id %}
+          <div class="absolute sm:right-4 sm:top-0 -top-9 right-0">
+            <a href="{{ url_for('logout') }}" 
+               class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white/80 backdrop-blur-sm rounded-lg hover:bg-white/90 transition-all duration-200 shadow-sm">
+              <i class="fas fa-sign-out-alt sm:mr-2"></i>
+              <span class="sm:block hidden">Logout</span>
+            </a>
+          </div>
+          {% endif %}
+          <div class="flex items-center justify-center mb-4 flex-col">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-2 tracking-wide" id="header-title">
+              The Wanderlist
+            </h1>
+            <p class="text-lg text-gray-600" id="header-subtitle">Your travel adventure awaits!</p>
+            <div id="imageContainer">
+              <img id="logo" src="/static/logo.svg" alt="Logo for The Wanderlist" class="size-40">
+            </div>
+          </div>
+        </header>
+       
+        <main>
+        {% block content %} 
+        <!-- Content of the page --> 
+        {% endblock %}
+      </main>
+    </div>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

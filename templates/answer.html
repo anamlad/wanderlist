@@ -1,0 +1,75 @@
+{% extends "layout.html" %} {% block title %} The Wanderlist {% endblock %} {%
+block content %}
+
+<div class="container mx-auto px-4 py-8">
+  <!-- Recommendation Section -->
+  <div
+    class="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg p-6 mb-8 max-w-2xl mx-auto"
+  >
+    <h2 class="text-2xl font-bold text-blue-900 mb-4">
+      Wanderlist Recommends:
+    </h2>
+    <p class="text-gray-700 leading-relaxed mb-6">{{ recommendation }}</p>
+  </div>
+
+  <div
+    class="sm:w-[400px] w-full h-[400px] mx-auto mt-8 rounded-xl shadow-lg border border-gray-200 overflow-hidden"
+  >
+    <div class="text-center mb-4">
+      <p
+        class="font-medium text-lg bg-white/20 backdrop-blur-sm py-2 px-4 rounded-full inline-block text-white shadow-sm"
+      >
+        Curated for your {{ mood }} trip:
+      </p>
+    </div>
+    <iframe
+      style="border-radius: 12px"
+      src="https://open.spotify.com/embed/playlist/{{ spotify_playlist_id }}"
+      width="100%"
+      height="100%"
+      frameborder="0"
+      allowfullscreen=""
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"
+    ></iframe>
+  </div>
+
+  {% block scripts %}
+  <script>
+    const mood = "{{ mood }}";
+    const bodyBackgroundDiv = document.getElementById("body-background");
+    const headerTitle = document.querySelector("#header-title");
+    const headerSubtitle = document.querySelector("#header-subtitle");
+    const clickMeBtn = document.querySelector("#click-me-btn");
+
+    const moodGradients = {
+      adventurous: ["#FF7043", "#00796B"],
+      relaxed: ["#81D4FA", "#F5F5DC"],
+      romantic: ["#F7A7B2", "#9B7E9F"],
+      energetic: ["#FFEB3B", "#8BC34A"],
+      peaceful: ["#A5D6A7", "#E0E0E0"],
+    };
+
+    if (headerTitle && headerSubtitle) {
+      headerTitle.classList.remove("text-gray-900");
+      headerTitle.classList.add(
+        "text-white",
+        "font-extrabold",
+        "tracking-wide"
+      );
+      headerSubtitle.classList.remove("text-gray-600");
+      headerSubtitle.classList.add("text-white");
+    }
+
+    function updateGradientBackground() {
+      const colors = moodGradients[mood];
+      if (colors) {
+        bodyBackgroundDiv.style.backgroundImage = `linear-gradient(to right, ${colors[0]}, ${colors[1]})`;
+      }
+    }
+
+    // Initialize the gradient background when the page loads
+    window.onload = updateGradientBackground;
+  </script>
+  {% endblock %} {% endblock %}
+</div>

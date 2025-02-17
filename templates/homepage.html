@@ -1,0 +1,56 @@
+{% extends "layout.html" %} {% block title %} The Wanderlist {% endblock %} {% block
+content %}
+<div class="absolute inset-0">
+  <video class="opacity-50 h-full w-full object-cover" autoplay muted>
+    <source src="static/travel-accessories.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  
+</div>
+<div class="flex items-center justify-center z-50">         
+        <a
+        href="/questions" id="click-me-btn"
+          class=" inline-block bg-indigo-300 text-white py-3 px-4 rounded-full font-medium hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform transition-all duration-200 hover:-translate-y-0.5"
+        >
+        Click me!
+</a>
+</div>
+
+{% block scripts %}
+<script>
+
+  const headerTitle = document.querySelector("#header-title");
+  const headerSubtitle = document.querySelector("#header-subtitle");
+  const clickMeBtn = document.querySelector("#click-me-btn");
+  const logo = document.querySelector("#logo")
+    
+  if (headerTitle && headerSubtitle && logo) {
+    headerTitle.classList.remove("text-gray-900");
+    headerTitle.classList.add("text-white", "font-extrabold", "tracking-wide");
+    headerSubtitle.classList.add("hidden");
+    logo.classList.add("hidden");
+
+  setTimeout(()=>{
+    headerTitle.style.transition = "opacity 1s";
+    headerSubtitle.style.transition = "opacity 1s";
+    headerTitle.style.opacity = "0"; 
+    headerSubtitle.style.opacity = "0"; 
+  }, 2000);
+
+  let direction = 1;
+
+  setTimeout(() => {
+    setInterval(() => {
+      if (clickMeBtn) {
+        // Move the button up and down by changing translateY
+        clickMeBtn.style.transform = `translateY(${direction * 10}px)`;
+        
+        // Reverse direction after moving by 10px
+        direction *= -1;
+      }
+    }, 500); // Adjust the interval time for how fast it jumps
+  }, 2000);
+}
+
+</script>
+{% endblock %} {% endblock %}
